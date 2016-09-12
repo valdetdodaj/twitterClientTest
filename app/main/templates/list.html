@@ -7,13 +7,13 @@
       <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="main.listDetail">
         <!-- hier den Tweet laden  -->
 
-        <div ng-repeat="text in testTW ">
-          {{tweets.text}}
+        <div ng-controller="ListCtrl">
+          <h2 ng-bind="list-ctrl">{{nameT}}</h2>
 
         </div>
         <!-- hier den autor -->
-        <div ng-repeat="screen_name in testTW">
-          {{tweets.user.screen_name}}
+        <div>
+          <h2></h2>
         </div>
 
 

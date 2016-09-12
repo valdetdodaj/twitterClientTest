@@ -36,13 +36,22 @@ angular.module('main', [
           }
         }
       })
-      .state('main.debug', {
-        url: '/debug',
+      .state('main.about', {
+        url: '/about',
         views: {
-          'tab-debug': {
-            templateUrl: 'main/templates/debug.html',
-            controller: 'DebugCtrl as ctrl'
+          'tab-about': {
+            templateUrl: 'main/templates/about.html',
+            //controller: 'DebugCtrl as ctrl'
           }
         }
-      });
+      })
+       .state('main.imprint', {
+        url: '/imprint',
+        views: {
+          'tab-imprint': {
+            templateUrl: 'main/templates/imprint.html',
+            //controller: 'DebugCtrl as ctrl'
+          }
+        }
+      }) ;
 });

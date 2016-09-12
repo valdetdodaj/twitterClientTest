@@ -2,6 +2,9 @@
 angular.module('main')
   .service('TwitterFunc', function ($http, $window) {
 
+
+    //var alleTweets = getTweets(result);
+
     var consumerKey = encodeURIComponent('KiidCd9EshA48hn8ipDOWKXH3');
     var consumerSecret = encodeURIComponent('2mnTcwXALxsnI66Jdz1R0TXJYLNp14vHi8skRuregGoQ3RMGfb');
 
@@ -49,13 +52,18 @@ angular.module('main')
           .then(function (result) {
 
             // Ausgabe der Objekte in der Console
-            //console.log(result.data.statuses);
+    // console.log(result.data.statuses);
 
             //var allTweets= [];
 
-            console.log(result.data);
+            //console.log(result.data);
 
-            var tweets = result.data.statuses;
+            var datenTweets= result.data.statuses;
+           // console.log(datenTweets[2].text);
+            console.log(datenTweets[2].user.screen_name);
+            var nameT = datenTweets[2].user.screen_name;
+
+           // var tweets = result.data.statuses;
 
             // Screen_Name aus Object asulesen
             // Dies soll aber mit ng-reapeat realisiert werden und die die ion-list geladen werden mit jeweils 2 div
