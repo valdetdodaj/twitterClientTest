@@ -1,9 +1,9 @@
 'use strict';
 angular.module('main')
   .service('TwitterFunc', function ($http, $window) {
-
-
-    //var alleTweets = getTweets(result);
+    this.data = {
+      tweets: []
+    }
 
     var consumerKey = encodeURIComponent('KiidCd9EshA48hn8ipDOWKXH3');
     var consumerSecret = encodeURIComponent('2mnTcwXALxsnI66Jdz1R0TXJYLNp14vHi8skRuregGoQ3RMGfb');
@@ -40,9 +40,11 @@ angular.module('main')
 
     this.getTweets = function () {
       // bnötigte Funktionen
+      var that = this;
       this.getToken().then(function () {
-        // JSON decoden?
+        // 
         return $http({
+
           method: 'GET',
           // hardgecodete Suche nach 'apple'' 
           url: 'https://api.twitter.com/1.1/search/tweets.json?q=apple',
@@ -52,18 +54,18 @@ angular.module('main')
           .then(function (result) {
 
             // Ausgabe der Objekte in der Console
-    // console.log(result.data.statuses);
-
+            // console.log(result.data.statuses);
+            
+            that.data.tweets = result.data.statuses;
+            
             //var allTweets= [];
-
             //console.log(result.data);
+            //var datenTweets = result.data.statuses;
+            // console.log(datenTweets[2].text);
+            //console.log(datenTweets[2].user.screen_name);
+            //var nameT = datenTweets[2].user.screen_name;
 
-            var datenTweets= result.data.statuses;
-           // console.log(datenTweets[2].text);
-            console.log(datenTweets[2].user.screen_name);
-            var nameT = datenTweets[2].user.screen_name;
-
-           // var tweets = result.data.statuses;
+            // var tweets = result.data.statuses;
 
             // Screen_Name aus Object asulesen
             // Dies soll aber mit ng-reapeat realisiert werden und die die ion-list geladen werden mit jeweils 2 div

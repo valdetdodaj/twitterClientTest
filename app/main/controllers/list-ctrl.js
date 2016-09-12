@@ -1,14 +1,9 @@
 'use strict';
 angular.module('main')
-.controller('ListCtrl', function (TwitterFunc, $scope) {
+  .controller('ListCtrl', function ($scope, TwitterFunc) {
+    this.data = TwitterFunc.data;
+    console.log('Hello from your Controller: ListCtrl in module main:. This is your controller:', this);
+    // Aufruf der det getTweets()-Funktion 
 
-  console.log('Hello from your Controller: ListCtrl in module main:. This is your controller:', this);
-  // Aufruf der det getTweets()-Funktion 
-  
-  //TwitterFunc.getTweets();
-  // TwitterFunc.getTweets();
-   $scope.datenT = TwitterFunc.getTweets();
-   
-
-
-});
+    TwitterFunc.getTweets();
+  });

@@ -1,19 +1,19 @@
 <ion-view view-title="List">
-  <ion-content >
+  <ion-content>
     <!--<ion-spinner icon="spiral"></ion-spinner> -->
     <!-- content goes here -->
 
-    <ion-list >
-      <ion-item class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="main.listDetail">
+    <ion-list>
+      <ion-item ng-repeat="tweet in ctrl.data.tweets" class="item-remove-animate item-avatar item-icon-right" type="item-text-wrap" ui-sref="main.listDetail">
         <!-- hier den Tweet laden  -->
 
-        <div ng-controller="ListCtrl">
-          <h2 ng-bind="list-ctrl">{{nameT}}</h2>
+        <div >
+          <h2>{{tweet.text}}</h2>
 
         </div>
         <!-- hier den autor -->
         <div>
-          <h2></h2>
+          <h2>{{tweet.user.screen_name}}</h2>
         </div>
 
 
@@ -21,8 +21,8 @@
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
 
-        
-        </ion-item>
+
+      </ion-item>
 
     </ion-list>
 
