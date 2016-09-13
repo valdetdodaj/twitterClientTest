@@ -9,11 +9,15 @@
       </label>
       <button>click</button>
     </div>
+    <!--pulll to refresh -->
+   <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
+  </ion-refresher>
       <ion-list>
-        <ion-item ng-repeat="tweet in ctrl.data.tweets" ng-click="ctrl.getIndex($index)" class="item-remove-animate item-avatar item-icon-right"
+        <ion-item ng-repeat="tweet in ctrl.data.tweets" ng-click="ctrl.getIndex($index)" class="item-avatar item-icon-right"
           type="item-text-wrap" ui-sref="main.listDetail">
           <!-- hier den Tweet laden  -->
-          <div>
+          <img ng-src="{{tweet.user.profile_image_url}}"
+          <div >
             <h2> <strong>{{tweet.text}}</strong></h2>
           </div>
           <!-- hier den autor -->
@@ -23,7 +27,6 @@
           <!-- Pfeil rechts im item '>'-->
           <i class="icon ion-chevron-right icon-accessory"></i>
         </ion-item>
-
       </ion-list>
   </ion-content>
 </ion-view>

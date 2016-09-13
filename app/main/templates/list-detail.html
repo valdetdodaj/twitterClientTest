@@ -3,9 +3,10 @@
   <ion-content class="padding">
     <!-- Hier die  detailietren Tweets laden name, zeit, followers, etc -->
     <div>
-      <h4>Name: {{ctrl.getTweet.user.screen_name}}</h4>
-        <h5>Tweet: {{ctrl.getTweet.text}}</h5>
-        <h6>date: {{ctrl.getTweet.user.created_at}}</h6> 
+      <h4>Name:<br>{{ctrl.getTweet.user.screen_name}}</h4>
+        <h5>Tweet:<br>{{ctrl.getTweet.text}}</h5>
+        <h6>Date:<br> {{ctrl.getTweet.user.created_at}}</h6> 
+        <img ng-src="{{ctrl.getTweet.user.profile_image_url}}"
     </div>
 
   </ion-content>

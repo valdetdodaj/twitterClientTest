@@ -71,7 +71,9 @@ angular.module('main')
     };
     // Um den Index vom Tweet zu bekommen
     this.index = function (index) {
-      var that = this;
-      that.data.tweet = this.data.tweets[index];
+      this.data.tweet = this.data.tweets[index];
+    };
+    this.doRefresh = function(){
+      this.getTweets;
     };
   });
