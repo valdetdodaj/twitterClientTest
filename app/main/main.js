@@ -21,18 +21,16 @@ angular.module('main', [
         views: {
           'tab-list': {
             templateUrl: 'main/templates/list.html',
-            // Controller fuer Liste aufgerufen
-            // erzeugt im Terminal mit yo *m-ionic:controller list* im Projekte Ordner 
             controller: 'ListCtrl as ctrl'
           }
         }
       })
       .state('main.listDetail', {
-        url: '/list/detail',
+        url: '/list/list-detail',
         views: {
           'tab-list': {
             templateUrl: 'main/templates/list-detail.html',
-            // controller: 'SomeCtrl as ctrl'
+            controller: 'ListDetailCtrl as ctrl'
           }
         }
       })

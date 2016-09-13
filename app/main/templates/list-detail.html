@@ -1,15 +1,12 @@
-<ion-view view-title="Detailed List">
+<ion-view view-title="Detail List">
   <!-- do you want padding -->
   <ion-content class="padding">
-
-    <!-- content goes here -->
-  
     <!-- Hier die  detailietren Tweets laden name, zeit, followers, etc -->
-    <p>
-      Hiern noch mehr <br>
-      Infotmation ueber .<br>
-      die Tweets. z.b. bild, follower, zeit etc
-    </p>
+    <div>
+      <h4>Name: {{ctrl.getTweet.user.screen_name}}</h4>
+        <h5>Tweet: {{ctrl.getTweet.text}}</h5>
+        <h6>date: {{ctrl.getTweet.user.created_at}}</h6> 
+    </div>
 
   </ion-content>
 </ion-view>
