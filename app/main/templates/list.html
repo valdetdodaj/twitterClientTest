@@ -16,7 +16,7 @@
         <ion-item ng-repeat="tweet in ctrl.data.tweets" ng-click="ctrl.getIndex($index)" class="item-avatar item-icon-right"
           type="item-text-wrap" ui-sref="main.listDetail">
           <!-- hier den Tweet laden  -->
-          <img ng-src="{{tweet.user.profile_image_url}}"
+          <img ng-src="{{tweet.user.profile_image_url}}">
           <div >
             <h2> <strong>{{tweet.text}}</strong></h2>
           </div>

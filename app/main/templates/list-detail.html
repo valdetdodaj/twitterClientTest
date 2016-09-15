@@ -2,12 +2,13 @@
   <!-- do you want padding -->
   <ion-content class="padding">
     <!-- Hier die  detailietren Tweets laden name, zeit, followers, etc -->
+    <br>
     <div>
-      <h4>Name:<br>{{ctrl.getTweet.user.screen_name}}</h4>
+      <h3>Name: {{ctrl.getTweet.user.screen_name}}</h3><br>
         <h5>Tweet:<br>{{ctrl.getTweet.text}}</h5>
         <h6>Date:<br> {{ctrl.getTweet.user.created_at}}</h6> 
-        <img ng-src="{{ctrl.getTweet.user.profile_image_url}}"
+        <img align="center" ng-src="{{ctrl.getTweet.user.profile_image_url}}">
     </div>
 
   </ion-content>
-</ion-view>
+</ion-view>‚
