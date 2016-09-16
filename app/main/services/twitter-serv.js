@@ -1,13 +1,13 @@
 'use strict';
 angular.module('main')
-  .service('TwitterFunc', function ($http, $window, $cordovaGeolocation) {
+  .service('TwitterFunc', function ($http, $window) {
     // Hier werden die Ojekte gespeichert!!
     this.data = {
       tweets: [],
       tweet: {},
       suchBegriff: '',
       lat: '',
-      long: ''
+      long: '',
       //radius: '',
     };
 
@@ -71,16 +71,16 @@ angular.module('main')
       });
     };
     // Tweets aus dem Radius vom 5km aufrufen
-    this.getTweetsByGeo = function (){
+    this.getTweetsByGeo = function () {
       var that = this;
-       return this.getToken().then(function (lat, long) {
+      return this.getToken().then(function () {
         return $http({
           method: 'GET',
-          url: 'https://api.twitter.com/1.1/search/tweets.json?q=stuttgart&geocode=' + that.data.lat + ',' + that.data.long +  ',5km',
+          url: 'https://api.twitter.com/1.1/search/tweets.json?q=stuttgart&geocode=' + that.data.lat + ',' + that.data.long + ',5km',
         })
           .then(function (result) {
             that.data.tweets = result.data.statuses;
-           
+
           })
           .catch(function (error) {
             console.log(error);

@@ -15,9 +15,6 @@ angular.module('main')
       //  console.log(index);
       TwitterFunc.index(index);
     };
-
-
-    
     this.getRefresh = function () {
       this.data = TwitterFunc.data;
       TwitterFunc.getTweets();
@@ -46,7 +43,7 @@ angular.module('main')
     // };
     // controller
     this.sortByName;
-    // 
+    //
     this.doSearch = function () {
       TwitterFunc.data.suchBegriff = this.searchQuery;
       this.showTweets();
@@ -84,13 +81,12 @@ angular.module('main')
     // this.showTweetsLocation = function (){
     //   $ionicLoading.show();
     //   TwitterFunc.getLocation();
-    //   console.log('Location-',;  
+    //   console.log('Location-',;
     //   // // TwitterFunc.getTweetsByGeo(TwitterFunc.data.position).finally(function () {
     //   // //   console.log('location',TwitterFunc.position);
     //   //   $ionicLoading.hide();
     //   // });
-
-    //   $ionicLoading.hide(); 
+    //   $ionicLoading.hide();
     // };
 
   });
