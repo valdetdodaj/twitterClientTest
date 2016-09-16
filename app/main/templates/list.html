@@ -1,32 +1,56 @@
 <ion-view view-title="List">
-  <ion-content>
-    <!--<ion-spinner icon="spiral"></ion-spinner> -->
+<ion-header-bar class="bar-subheader">
+      <!--<button class="button icon ion-refresh" ng-click="ctrl.getRefresh()"> reload   </button>
+      <button class="button icon ion-shuffle" ng-click="ctrl.sortByName() | orderBy : 'user.screen_name'"> sortByName</button>
+      <button class="button icon ion-clipboard" ng-click="ctrl.sortByName() | orderBy : 'user.screen_name'"> sortByText</button>
+      <button class="button icon ion-clipboard" ng-click="ctrl.sortByName() | orderBy : 'user.screen_name'"> sortByText</button>-->
+  <div class="button-bar">
+    <a class="button icon ion-refresh" ng-click="ctrl.showTweets()"> Refresh</a>
+    <a class="button icon ion-shuffle" ng-click="ctrl.sortByName = 'user.screen_name'; sortReverse = !sortReverse"> SortName</a>
+    <a class="button icon ion-location" ng-click="ctrl.getLocation()"> LocTweets</a>
+  </div>
+    </ion-header-bar>
+  <ion-content class="has-header">
+    {{ctrl.coords.latitude}}, {{ctrl.coords.longitude}}
+    <!--<ion-header-bar class="bar-light bar-subheader">
+      <input  type="text" placeholder="Search" ng-model="ctrl.searchQuery" ng-click="ctrl.doSearch()">
+      <!--<button ng-if="searchForce.length" class="button input-button" ng-click="clearSearch()">
+      </button>-->
+    <!--</ion-header-bar>-->
     <!-- content goes here -->
-    <div class="bar bar-header item-input-inset">
-      <label class="item-input-wrapper">
+    <!--<div class="bar bar-subheader">
+      <h2 class="title">Sub Header</h2>
+    </div>-->
+    <!--<div class="bar bar-header">-->
+    <!--<label class="item-input-wrapper">
          <i class="icon ion-ios-search placeholder-icon"></i>
         <input type="search" placeholder="Search">
-      </label>
-      <button>click</button>
+      </label>-->
+    <div class="bar bar-header item-input-inset">
+      <label class="item-input-wrapper textbox-search">
+                <i class="icon ion-ios-search placeholder-icon"></i>
+                <input id="keyboard" ng-keypress="ctrl.doEnterSearch($event)" type="text" ng-model="ctrl.searchQuery" placeholder="Search Twitter"> 
+            </label>
+      <button class="button" ng-click="ctrl.doSearch()"> search</button>
     </div>
     <!--pulll to refresh -->
-   <ion-refresher pulling-text="Pull to refresh" on-refresh="doRefresh()">
-  </ion-refresher>
-      <ion-list>
-        <ion-item ng-repeat="tweet in ctrl.data.tweets" ng-click="ctrl.getIndex($index)" class="item-avatar item-icon-right"
-          type="item-text-wrap" ui-sref="main.listDetail">
-          <!-- hier den Tweet laden  -->
-          <img ng-src="{{tweet.user.profile_image_url}}">
-          <div >
-            <h2> <strong>{{tweet.text}}</strong></h2>
-          </div>
-          <!-- hier den autor -->
-          <div>
-            <h2>name: {{tweet.user.screen_name}}</h2>
-          </div>
-          <!-- Pfeil rechts im item '>'-->
-          <i class="icon ion-chevron-right icon-accessory"></i>
-        </ion-item>
-      </ion-list>
+    <ion-refresher pulling-text="Pull to refresh" on-refresh="ctrl.getRefresh()">
+    </ion-refresher>
+    <ion-list>
+      <ion-item ng-repeat="tweet in ctrl.data.tweets | orderBy : ctrl.sortByName : sortReverse" ng-click="ctrl.getIndex($index)" class="item-avatar item-icon-right" type="item-text-wrap"
+        ui-sref="main.listDetail">
+        <!-- hier den Tweet laden  -->
+        <img ng-src="{{tweet.user.profile_image_url}}">
+        <div>
+          <h2> <strong>{{tweet.text}}</strong></h2>
+        </div>
+        <!-- hier den autor -->
+        <div>
+          <h2>name: {{tweet.user.screen_name}}</h2>
+        </div>
+        <!-- Pfeil rechts im item '>'-->
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

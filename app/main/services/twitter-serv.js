@@ -1,10 +1,14 @@
 'use strict';
 angular.module('main')
-  .service('TwitterFunc', function ($http, $window) {
+  .service('TwitterFunc', function ($http, $window, $cordovaGeolocation) {
     // Hier werden die Ojekte gespeichert!!
     this.data = {
       tweets: [],
-      tweet: {}
+      tweet: {},
+      suchBegriff: '',
+      lat: '',
+      long: ''
+      //radius: '',
     };
 
     var consumerKey = encodeURIComponent('KiidCd9EshA48hn8ipDOWKXH3');
@@ -33,19 +37,16 @@ angular.module('main')
           console.log(error);
         });
     };
-
+    //
     this.getTweets = function () {
       var that = this;
-      this.getToken().then(function () {
-        var suche = '?q=';
-        var suchBegriff = 'samsung';
+      return this.getToken().then(function (suchBegriff) {
         return $http({
-
           method: 'GET',
           // hardgecodete Suche nach 'apple''
-          //url: 'https://api.twitter.com/1.1/search/tweets.json?q=apple',
-          url: 'https://api.twitter.com/1.1/search/tweets.json' + suche + suchBegriff,
-
+          // url: 'https://api.twitter.com/1.1/search/tweets.json?q=',
+          url: 'https://api.twitter.com/1.1/search/tweets.json?q=' + suchBegriff,
+          // url: 'https://api.twitter.com/1.1/search/tweets.json?geocode=48.808886699999995,9.178864599999999,5km',
         })
           .then(function (result) {
             that.data.tweets = result.data.statuses;
@@ -69,11 +70,27 @@ angular.module('main')
           });
       });
     };
+    // Tweets aus dem Radius vom 5km aufrufen
+    this.getTweetsByGeo = function (){
+      var that = this;
+       return this.getToken().then(function (lat, long) {
+        return $http({
+          method: 'GET',
+          url: 'https://api.twitter.com/1.1/search/tweets.json?q=stuttgart&geocode=' + that.data.lat + ',' + that.data.long +  ',5km',
+        })
+          .then(function (result) {
+            that.data.tweets = result.data.statuses;
+           
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      });
+    };
+
     // Um den Index vom Tweet zu bekommen
     this.index = function (index) {
       this.data.tweet = this.data.tweets[index];
     };
-    this.doRefresh = function(){
-      this.getTweets;
-    };
+
   });

@@ -8,6 +8,6 @@ angular.module('main')
     // Aufruf der getTweets()-Funktion
     // TwitterFunc.getTweets();
     this.getTweet = TwitterFunc.data.tweet;
-    console.log('DETAIL', this.getTweet);
+    //console.log('DETAIL', this.getTweet);
     //console.log(TwitterFunc.data.tweet.user.screen_name);
   });
