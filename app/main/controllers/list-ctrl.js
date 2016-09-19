@@ -3,14 +3,9 @@ angular.module('main')
   .controller('ListCtrl', function (TwitterFunc, $ionicLoading, $scope, $cordovaGeolocation) {
     //$ionicLoading.show(); // Displays the native loading indicator
     this.searchQuery = TwitterFunc.data.suchBegriff;
-    this.geoloc = TwitterFunc.data.position;
     this.data = TwitterFunc.data;
-    //this.getTweet = TwitterFunc.data.tweet;
-    //console.log(angular.isObject(this.data))
-    // Aufruf der getTweets()-Funktion
-    //TwitterFunc.getTweets();
-    // $ionicLoading.hide(); // Hides the loading indicator
-    //$ionicLoading.hide(); // Hides the loading indicator
+    this.lati = TwitterFunc.data.lat;
+    this.longi = TwitterFunc.data.long;
     this.getIndex = function (index) {
       //  console.log(index);
       TwitterFunc.index(index);
@@ -18,12 +13,13 @@ angular.module('main')
     this.getRefresh = function () {
       this.data = TwitterFunc.data;
       TwitterFunc.getTweets();
-      console.log('Refresher-');
+      //console.log('-Pull to refresh ausgefuehrt!-');
       $scope.$broadcast('scroll.refreshComplete');
       //$ionicLoading.hide(); // Hides the loading indicator
       //TwitterFunc.doRefresh()
       //this.getTweet = TwitterFunc.data.tweet;
     };
+    //Eingabespezifische Suche
     this.showTweets = function () {
       $ionicLoading.show();
       TwitterFunc.getTweets(TwitterFunc.data.suchBegriff).finally(function () {
@@ -43,50 +39,49 @@ angular.module('main')
     // };
     // controller
     this.sortByName;
-    //
+    // this.doSearch = function () {
+    //   TwitterFunc.data.suchBegriff = this.searchQuery;
+    //   this.showTweets();
+    // };
     this.doSearch = function () {
+      var that = this;
       TwitterFunc.data.suchBegriff = this.searchQuery;
-      this.showTweets();
+      this.getLocation().then(function () {
+        //console.log('Latitude---', TwitterFunc.data.lat);
+        if (TwitterFunc.data.lat === undefined) {
+          that.showTweets();
+          //console.log('keine Location!!');
+        } else {
+          that.getLocation()
+            .then(function () {
+              TwitterFunc.getTweetsByGeo(TwitterFunc.data.suchBegriff, TwitterFunc.data.lat, TwitterFunc.data.long);
+              //console.log('Lati:', TwitterFunc.data.lat);
+            }).finally(function () {
+              $ionicLoading.hide();
+            });
+        }
+      });
     };
+    // if enter then hit the search button
     this.doEnterSearch = function (event) {
-      if (event.charCode === 13) {//if enter then hit the search button
+      if (event.charCode === 13) {
         this.doSearch();
         document.getElementById('keyboard').blur();
       }
     };
-    // this.getLocation = function () {
-    //   var posOptions = { timeout: 50000, enableHighAccuracy: true };
-    //   $cordovaGeolocation
-    //     .getCurrentPosition(posOptions)
-    //     .then(function (position) {
-    //       $scope.coords = position.coords;
-    //       // var lat  = position.coords.latitude
-    //       // var long = position.coords.longitude
-    //       console.log('Location_:', $scope.coords);
-    //     });
-    // };
+    //Geolocation
     this.getLocation = function () {
-      var that = this;
       var posOptions = { timeout: 10000, enableHighAccuracy: true };
-      $cordovaGeolocation
+      $ionicLoading.show();
+      return $cordovaGeolocation
         .getCurrentPosition(posOptions)
         .then(function (position) {
-          that.coords = position.coords;
           TwitterFunc.data.lat = position.coords.latitude;
           TwitterFunc.data.long = position.coords.longitude;
-          TwitterFunc.getTweetsByGeo(TwitterFunc.data.lat, TwitterFunc.data.long);
+          //TwitterFunc.getTweetsByGeo(TwitterFunc.data.lat, TwitterFunc.data.long);
+          //$ionicLoading.hide();
+        }, function (error) {
+          console.log('Keine Geolocation', error);
         });
     };
-
-    // this.showTweetsLocation = function (){
-    //   $ionicLoading.show();
-    //   TwitterFunc.getLocation();
-    //   console.log('Location-',;
-    //   // // TwitterFunc.getTweetsByGeo(TwitterFunc.data.position).finally(function () {
-    //   // //   console.log('location',TwitterFunc.position);
-    //   //   $ionicLoading.hide();
-    //   // });
-    //   $ionicLoading.hide();
-    // };
-
   });
