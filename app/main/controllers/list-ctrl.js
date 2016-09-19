@@ -6,6 +6,9 @@ angular.module('main')
     this.data = TwitterFunc.data;
     this.lati = TwitterFunc.data.lat;
     this.longi = TwitterFunc.data.long;
+    this.sortByName;
+    this.filterText;
+
     this.getIndex = function (index) {
       //  console.log(index);
       TwitterFunc.index(index);
@@ -27,22 +30,6 @@ angular.module('main')
       });
       //console.log(TwitterFunc.data.tweets);
     };
-    // this.sortByName = function () {
-    //   this.propertyName = 'user.screen_name';
-    //   this.reverse = true;
-    //   this.tweets = TwitterFunc.data.tweets
-
-    //   this.sortBy = function(propertyName){
-    //   this.reverse = (this.propertyName === propertyName) ? !this.reverse : false; this.propertyName = propertyName;
-    //   }
-    // console.log('asd',TwitterFunc.data.tweets);
-    // };
-    // controller
-    this.sortByName;
-    // this.doSearch = function () {
-    //   TwitterFunc.data.suchBegriff = this.searchQuery;
-    //   this.showTweets();
-    // };
     this.doSearch = function () {
       var that = this;
       TwitterFunc.data.suchBegriff = this.searchQuery;
@@ -50,12 +37,12 @@ angular.module('main')
         //console.log('Latitude---', TwitterFunc.data.lat);
         if (TwitterFunc.data.lat === undefined) {
           that.showTweets();
-          //console.log('keine Location!!');
+          console.log('keine Location!!');
         } else {
           that.getLocation()
             .then(function () {
               TwitterFunc.getTweetsByGeo(TwitterFunc.data.suchBegriff, TwitterFunc.data.lat, TwitterFunc.data.long);
-              //console.log('Lati:', TwitterFunc.data.lat);
+              console.log('Lati:', TwitterFunc.data.lat);
             }).finally(function () {
               $ionicLoading.hide();
             });
@@ -66,6 +53,11 @@ angular.module('main')
     this.doEnterSearch = function (event) {
       if (event.charCode === 13) {
         this.doSearch();
+        document.getElementById('keyboard').blur();
+      }
+    };
+    this.closeKeyboard = function (event) {
+      if (event.charCode === 13) {
         document.getElementById('keyboard').blur();
       }
     };
@@ -80,6 +72,21 @@ angular.module('main')
           TwitterFunc.data.long = position.coords.longitude;
           //TwitterFunc.getTweetsByGeo(TwitterFunc.data.lat, TwitterFunc.data.long);
           //$ionicLoading.hide();
+        }, function (error) {
+          console.log('Keine Geolocation', error);
+        });
+    };
+    // Asynchrones Abfragen
+    this.getLocationTweets = function () {
+      var posOptions = { timeout: 10000, enableHighAccuracy: true };
+      $ionicLoading.show();
+      return $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function (position) {
+          TwitterFunc.data.lat = position.coords.latitude;
+          TwitterFunc.data.long = position.coords.longitude;
+          TwitterFunc.getTweetsByGeo(TwitterFunc.data.lat, TwitterFunc.data.long);
+          $ionicLoading.hide();
         }, function (error) {
           console.log('Keine Geolocation', error);
         });
