@@ -1,10 +1,9 @@
 'use strict';
 angular.module('main')
   .controller('ListCtrl', function (TwitterFunc, $ionicLoading, $scope, $cordovaGeolocation) {
-    //$ionicLoading.show(); // Displays the native loading indicator
     this.searchQuery = TwitterFunc.data.suchBegriff;
-    this.data = TwitterFunc.data;
-    this.lati = TwitterFunc.data.lat;
+    // this.data = TwitterFunc.data;
+    // this.lati = TwitterFunc.data.lat;
     this.longi = TwitterFunc.data.long;
     this.sortByName;
     this.filterText;
@@ -19,13 +18,13 @@ angular.module('main')
       //console.log('-Pull to refresh ausgefuehrt!-');
       $scope.$broadcast('scroll.refreshComplete');
       //$ionicLoading.hide(); // Hides the loading indicator
-      //TwitterFunc.doRefresh()
-      //this.getTweet = TwitterFunc.data.tweet;
     };
     //Eingabespezifische Suche
     this.showTweets = function () {
+      // Displays the native loading indicator
       $ionicLoading.show();
       TwitterFunc.getTweets(TwitterFunc.data.suchBegriff).finally(function () {
+        // Hides the native loading indicator
         $ionicLoading.hide();
       });
       //console.log(TwitterFunc.data.tweets);

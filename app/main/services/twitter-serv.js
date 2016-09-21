@@ -35,7 +35,7 @@ angular.module('main')
           console.log(error);
         });
     };
-    // Tweets mit Suchbegriff Funktion
+    // Tweets mit Suchbegriff-Funktion
     this.getTweets = function (suchBegriff) {
       var that = this;
       return this.getToken().then(function () {
@@ -51,7 +51,7 @@ angular.module('main')
           });
       });
     };
-    // Tweets aus dem Radius vom 5km aufrufen und Suchbegriff
+    // Tweets aus dem Radius vom 5km aufrufen, mit Suchbegriff
     this.getTweetsByGeo = function (suchBegriff, lat, long) {
       var that = this;
       return this.getToken().then(function () {
