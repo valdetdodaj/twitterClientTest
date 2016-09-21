@@ -17,7 +17,6 @@ angular.module('main')
       TwitterFunc.getTweets();
       //console.log('-Pull to refresh ausgefuehrt!-');
       $scope.$broadcast('scroll.refreshComplete');
-      //$ionicLoading.hide(); // Hides the loading indicator
     };
     //Eingabespezifische Suche
     this.showTweets = function () {

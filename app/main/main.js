@@ -3,7 +3,6 @@ angular.module('main', [
   'ionic',
   'ngCordova',
   'ui.router',
-  // TODO: load other modules selected during generation
 ])
   .config(function ($stateProvider, $urlRouterProvider) {
 
@@ -39,7 +38,6 @@ angular.module('main', [
         views: {
           'tab-about': {
             templateUrl: 'main/templates/about.html',
-            //controller: 'DebugCtrl as ctrl'
           }
         }
       })
@@ -48,7 +46,6 @@ angular.module('main', [
         views: {
           'tab-imprint': {
             templateUrl: 'main/templates/imprint.html',
-            //controller: 'DebugCtrl as ctrl'
           }
         }
       });
